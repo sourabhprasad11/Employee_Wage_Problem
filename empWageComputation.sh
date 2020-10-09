@@ -26,7 +26,6 @@ function getworkinghr(){
 
 }
 
-i=0
 
 while [[ $workinghr -lt $MAX_MONTH_HR && $workingdays -lt $NUM_WORKING_DAYS ]]
 do
@@ -36,16 +35,18 @@ do
 	emphr=$( getworkinghr $x )
 
 	workinghr=$(( $workinghr+$emphr ))
-	dailywages[$i]=$(( $emphr*$WAGE_PER_HR ))
-	totalwages[$i]=$(( $workinghr*$WAGE_PER_HR ))
-	((i++))
+	dailywages[$workingdays]=$(( $emphr*$WAGE_PER_HR ))
+	totalwages[$workingdays]=$(( $workinghr*$WAGE_PER_HR ))
+
 done
 
 wage=$(( $workinghr*$WAGE_PER_HR ))
 echo "The salary of the Employee: $wage";
 echo "TotalWages:"
+echo "${!totalwages[@]}"
 echo "${totalwages[@]}"
 echo "DailyWages:"
+echo "${!dailywages[@]}"
 echo "${dailywages[@]}"
 
 
