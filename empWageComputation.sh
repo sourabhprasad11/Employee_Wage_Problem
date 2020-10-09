@@ -11,19 +11,30 @@ NUM_WORKING_DAYS=20
 workingdays=0
 workinghr=0
 
+function getworkinghr(){
+	local emphr=0;
+
+	case $1 in
+        1)        emphr=8
+                                ;;
+        2)        emphr=4
+                                ;;
+        *)        emphr=0
+                                ;;
+        esac
+ 	echo $emphr
+
+}
+
 while [[ $workinghr -lt $MAX_MONTH_HR && $workingdays -lt $NUM_WORKING_DAYS ]]
 do
 	((workingdays++))
 	x=$((RANDOM%3))
-	case $x in
-	1)        emphr=8
-                	        ;;
-	2)        emphr=4
-                	        ;;
-	*) 	  emphr=0
-        			;;
-	esac
+
+	emphr=$( getworkinghr $x )
+
 	workinghr=$(( $workinghr+$emphr ))
+
 done
 
 wage=$(( $workinghr*$WAGE_PER_HR ))
